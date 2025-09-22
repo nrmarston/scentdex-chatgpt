@@ -1,0 +1,84 @@
+---
+import type { Fragrance } from "../../types.ts";
+export const prerender = false;
+
+const { slug } = Astro.params;
+
+async function loadFragranceBySlug(targetSlug: string): Promise<Fragrance | null> {
+  try {
+    const brands: { slug: string; name: string }[] = await fetch(
+      new URL("/data/brands.json", Astro.url)
+    ).then((r) => r.json());
+
+    for (const brand of brands) {
+      try {
+        const items: Fragrance[] = await fetch(
+          new URL(`/data/fragrances-${brand.slug}.json`, Astro.url)
+        ).then((r) => r.json());
+        const found = items.find((f) => f.slug === targetSlug);
+        if (found) return found;
+      } catch {
+        // Ignore shard fetch errors for individual brands
+      }
+    }
+  } catch {
+    // Ignore brands fetch error; handled below with 404
+  }
+  return null;
+}
+
+const fragrance = slug ? await loadFragranceBySlug(slug) : null;
+if (!fragrance) {
+  Astro.response.status = 404;
+}
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{fragrance ? `${fragrance.name} — ${fragrance.brand_name}` : "Not found"}</title>
+    {fragrance && (
+      <>
+        <meta name="description" content={fragrance.description} />
+        <link rel="preload" href="/data/brands.json" as="fetch" crossorigin>
+      </>
+    )}
+  </head>
+  <body>
+    <main class="container">
+      {fragrance ? (
+        <article>
+          <p><a href="/">← Back</a></p>
+          <h1>{fragrance.name}</h1>
+          <p><strong>Brand:</strong> {fragrance.brand_name}</p>
+          <p><strong>Year:</strong> {fragrance.year}</p>
+          <p><strong>Concentration:</strong> {fragrance.concentration}</p>
+          <p><strong>Gender:</strong> {fragrance.gender}</p>
+          <p><strong>Country:</strong> {fragrance.country_code}</p>
+          <p><strong>Longevity:</strong> {fragrance.longevity}</p>
+          <p><strong>Sillage:</strong> {fragrance.sillage}</p>
+          {fragrance.perfumer_names?.length ? (
+            <p><strong>Perfumer(s):</strong> {fragrance.perfumer_names.join(", ")}</p>
+          ) : null}
+          {fragrance.notes?.length ? (
+            <p><strong>Notes:</strong> {fragrance.notes.join(", ")}</p>
+          ) : null}
+          {fragrance.description ? <p>{fragrance.description}</p> : null}
+        </article>
+      ) : (
+        <article>
+          <p><a href="/">← Back</a></p>
+          <h1>Fragrance not found</h1>
+          <p>The requested fragrance could not be located.</p>
+        </article>
+      )}
+    </main>
+  </body>
+  <style>
+    .container { max-width: 720px; margin: 0 auto; padding: 1rem; }
+    h1 { margin: 0 0 0.5rem; }
+    p { margin: 0.25rem 0; }
+    a { text-decoration: none; }
+  </style>
+</html>
+
+
