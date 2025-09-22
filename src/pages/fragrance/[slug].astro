@@ -1,4 +1,5 @@
 ---
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Fragrance } from "../../types.ts";
 export const prerender = false;
 
@@ -31,6 +32,55 @@ const fragrance = slug ? await loadFragranceBySlug(slug) : null;
 if (!fragrance) {
   Astro.response.status = 404;
 }
+
+const genderLabels: Record<string, string> = {
+  f: "Feminine",
+  m: "Masculine",
+  u: "Unisex",
+};
+
+const toTitleCase = (value: string) =>
+  value
+    .split(" ")
+    .map((word) => (word ? word[0]?.toUpperCase() + word.slice(1) : word))
+    .join(" ");
+
+const detailItems = fragrance
+  ? ([
+      {
+        label: "Year",
+        value: Number.isFinite(fragrance.year) ? String(fragrance.year) : null,
+      },
+      {
+        label: "Concentration",
+        value: fragrance.concentration || null,
+      },
+      {
+        label: "Gender",
+        value: fragrance.gender
+          ? genderLabels[fragrance.gender.toLowerCase()] ?? toTitleCase(fragrance.gender)
+          : null,
+      },
+      {
+        label: "Country",
+        value: fragrance.country_code ? fragrance.country_code.toUpperCase() : null,
+      },
+      {
+        label: "Longevity",
+        value: fragrance.longevity ? toTitleCase(fragrance.longevity) : null,
+      },
+      {
+        label: "Sillage",
+        value: fragrance.sillage ? toTitleCase(fragrance.sillage) : null,
+      },
+      fragrance.perfumer_names?.length
+        ? { label: "Perfumer(s)", value: fragrance.perfumer_names.join(", ") }
+        : null,
+      fragrance.notes?.length
+        ? { label: "Notes", value: fragrance.notes.join(", ") }
+        : null,
+    ].filter(Boolean) as { label: string; value: string }[])
+  : [];
 ---
 <html lang="en">
   <head>
@@ -44,41 +94,72 @@ if (!fragrance) {
     )}
   </head>
   <body>
-    <main class="container">
+    <main class="mx-auto flex w-full max-w-3xl flex-col gap-6 px-4 py-10">
       {fragrance ? (
-        <article>
-          <p><a href="/">← Back</a></p>
-          <h1>{fragrance.name}</h1>
-          <p><strong>Brand:</strong> {fragrance.brand_name}</p>
-          <p><strong>Year:</strong> {fragrance.year}</p>
-          <p><strong>Concentration:</strong> {fragrance.concentration}</p>
-          <p><strong>Gender:</strong> {fragrance.gender}</p>
-          <p><strong>Country:</strong> {fragrance.country_code}</p>
-          <p><strong>Longevity:</strong> {fragrance.longevity}</p>
-          <p><strong>Sillage:</strong> {fragrance.sillage}</p>
-          {fragrance.perfumer_names?.length ? (
-            <p><strong>Perfumer(s):</strong> {fragrance.perfumer_names.join(", ")}</p>
-          ) : null}
-          {fragrance.notes?.length ? (
-            <p><strong>Notes:</strong> {fragrance.notes.join(", ")}</p>
-          ) : null}
-          {fragrance.description ? <p>{fragrance.description}</p> : null}
+        <article class="flex flex-col gap-6">
+          <a
+            class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
+            href="/"
+          >
+            <span aria-hidden="true">←</span>
+            <span>Back</span>
+          </a>
+          <Card className="border-border/80">
+            <CardHeader className="gap-1.5">
+              <CardTitle className="text-3xl font-semibold tracking-tight">
+                {fragrance.name}
+              </CardTitle>
+              <CardDescription className="text-base">
+                {fragrance.brand_name}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-8">
+              {detailItems.length ? (
+                <dl class="grid gap-4 text-sm sm:grid-cols-2">
+                  {detailItems.map((item) => (
+                    <div class="flex flex-col gap-1" data-detail={item.label}>
+                      <dt class="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {item.label}
+                      </dt>
+                      <dd class="text-base font-medium text-foreground">
+                        {item.value}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              ) : null}
+              {fragrance.description ? (
+                <div class="space-y-2">
+                  <h2 class="text-lg font-semibold tracking-tight">Description</h2>
+                  <p class="text-base leading-7 text-muted-foreground">
+                    {fragrance.description}
+                  </p>
+                </div>
+              ) : null}
+            </CardContent>
+          </Card>
         </article>
       ) : (
-        <article>
-          <p><a href="/">← Back</a></p>
-          <h1>Fragrance not found</h1>
-          <p>The requested fragrance could not be located.</p>
+        <article class="flex flex-col gap-6">
+          <a
+            class="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
+            href="/"
+          >
+            <span aria-hidden="true">←</span>
+            <span>Back</span>
+          </a>
+          <Card className="border-border/80">
+            <CardHeader className="gap-3">
+              <CardTitle className="text-2xl font-semibold tracking-tight">
+                Fragrance not found
+              </CardTitle>
+              <CardDescription>
+                The requested fragrance could not be located.
+              </CardDescription>
+            </CardHeader>
+          </Card>
         </article>
       )}
     </main>
   </body>
-  <style>
-    .container { max-width: 720px; margin: 0 auto; padding: 1rem; }
-    h1 { margin: 0 0 0.5rem; }
-    p { margin: 0.25rem 0; }
-    a { text-decoration: none; }
-  </style>
 </html>
-
-
