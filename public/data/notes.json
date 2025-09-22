@@ -1,0 +1,13 @@
+[
+  { "slug": "rose", "name": "rose" },
+  { "slug": "oud", "name": "oud" },
+  { "slug": "bergamot", "name": "bergamot" },
+  { "slug": "amber", "name": "amber" },
+  { "slug": "patchouli", "name": "patchouli" },
+  { "slug": "sandalwood", "name": "sandalwood" },
+  { "slug": "vanilla", "name": "vanilla" },
+  { "slug": "cedarwood", "name": "cedarwood" },
+  { "slug": "frankincense", "name": "frankincense" },
+  { "slug": "lavender", "name": "lavender" },
+  { "slug": "mint", "name": "mint" }
+]

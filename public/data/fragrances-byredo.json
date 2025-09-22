@@ -1,0 +1,36 @@
+[
+  {
+    "id": 3,
+    "slug": "bal-d-afrique",
+    "name": "Bal d'Afrique",
+    "brand_slug": "byredo",
+    "brand_name": "Byredo",
+    "year": 2009,
+    "concentration": "EDP",
+    "gender": "u",
+    "country_code": "SE",
+    "longevity": "moderate",
+    "sillage": "moderate",
+    "perfumer_names": ["Fabrice Pellegrin"],
+    "notes": ["bergamot"],
+    "description": "Woody amber, vetiver",
+    "similar_slugs": []
+  },
+  {
+    "id": 4,
+    "slug": "young-rose",
+    "name": "Young Rose",
+    "brand_slug": "byredo",
+    "brand_name": "Byredo",
+    "year": 2021,
+    "concentration": "EDP",
+    "gender": "u",
+    "country_code": "SE",
+    "longevity": "moderate",
+    "sillage": "soft",
+    "perfumer_names": ["Fabrice Pellegrin"],
+    "notes": ["rose"],
+    "description": "Spicy rose, ambroxan",
+    "similar_slugs": []
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "slug": "reflection-man",
+    "name": "Reflection Man",
+    "brand_slug": "amouage",
+    "brand_name": "Amouage",
+    "year": 2007,
+    "concentration": "EDP",
+    "gender": "m",
+    "country_code": "OM",
+    "longevity": "long",
+    "sillage": "moderate",
+    "perfumer_names": ["Alberto Morillas"],
+    "notes": ["rose", "bergamot"],
+    "description": "Floral woody musk",
+    "similar_slugs": []
+  },
+  {
+    "id": 2,
+    "slug": "interlude-man",
+    "name": "Interlude Man",
+    "brand_slug": "amouage",
+    "brand_name": "Amouage",
+    "year": 2012,
+    "concentration": "EDP",
+    "gender": "m",
+    "country_code": "OM",
+    "longevity": "long",
+    "sillage": "strong",
+    "perfumer_names": ["Olivier Cresp"],
+    "notes": ["oud", "amber"],
+    "description": "Incense amber, smoky",
+    "similar_slugs": []
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 7,
+    "slug": "fleur-narcotique",
+    "name": "Fleur Narcotique",
+    "brand_slug": "ex-nihilo",
+    "brand_name": "Ex Nihilo",
+    "year": 2014,
+    "concentration": "EDP",
+    "gender": "u",
+    "country_code": "FR",
+    "longevity": "moderate",
+    "sillage": "moderate",
+    "perfumer_names": ["Quentin Bisch"],
+    "notes": ["bergamot", "rose"],
+    "description": "Fruity floral, musky",
+    "similar_slugs": []
+  },
+  {
+    "id": 8,
+    "slug": "oud-vendome",
+    "name": "Oud Vendôme",
+    "brand_slug": "ex-nihilo",
+    "brand_name": "Ex Nihilo",
+    "year": 2013,
+    "concentration": "EDP",
+    "gender": "u",
+    "country_code": "FR",
+    "longevity": "long",
+    "sillage": "strong",
+    "perfumer_names": ["Olivier Cresp"],
+    "notes": ["oud", "amber", "sandalwood"],
+    "description": "Modern oud, amber woods",
+    "similar_slugs": []
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 5,
+    "slug": "philosykos",
+    "name": "Philosykos",
+    "brand_slug": "diptyque",
+    "brand_name": "Diptyque",
+    "year": 1996,
+    "concentration": "EDT",
+    "gender": "u",
+    "country_code": "FR",
+    "longevity": "moderate",
+    "sillage": "soft",
+    "perfumer_names": ["Fabrice Pellegrin"],
+    "notes": ["bergamot"],
+    "description": "Fig green woody",
+    "similar_slugs": []
+  },
+  {
+    "id": 6,
+    "slug": "eau-duelle",
+    "name": "Eau Duelle",
+    "brand_slug": "diptyque",
+    "brand_name": "Diptyque",
+    "year": 2010,
+    "concentration": "EDT",
+    "gender": "u",
+    "country_code": "FR",
+    "longevity": "moderate",
+    "sillage": "moderate",
+    "perfumer_names": ["Olivier Cresp"],
+    "notes": ["amber"],
+    "description": "Vanilla spice tea",
+    "similar_slugs": []
+  }
+]
